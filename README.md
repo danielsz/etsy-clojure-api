@@ -1,20 +1,49 @@
-# etsy-api
+# Etsy API library for Clojure
 
-FIXME: description
+Initial release of an API wrapper for Etsy in Clojure.
 
 ## Installation
 
-Download from http://example.com/FIXME.
+Add the following dependency to your project.clj file:
+
+    [etsy "0.0.2"]
 
 ## Usage
 
-FIXME: explanation
+Before issuing actual API calls, you need to provide your API key and secret.
+(You must have received them when registering your Etsy application.)
 
-    $ java -jar etsy-api-0.1.0-standalone.jar [args]
+    (require '[etsy.core :refer [make-consumer])
 
-## Options
+```clojure
+(make-consumer "consumer-key" "consumer-secret")
+```
 
-FIXME: listing of options this app accepts.
+Now you're ready to issue API calls.
+
+```clojure
+(etsy.api.shop/get-shop "shop-id")
+```
+
+The call above will result in an unauthenticated request.
+
+To issue an authenticated request on behalf of a user, wrap the request with the user's OAuth token and secret.
+
+```clojure
+(with-auth "oauth-token" "oauth-secret"
+   (etsy.api.shop/get-shop "shop-id"))
+```
+
+The JSON results are converted to a native Clojure map.
+
+## Design philosophy
+
+Following the principle of least astonishment (POLA), the design of the library follows a one-on-one mapping with the official Etsy API.
+
+Every category in the API corresponds to a namespace. Every API call corresponds to a function whose name has been converted from CamelCase to hyphenated strings. Every function accepts arguments modeled on the API options.
+
+Please refer to the official reference: http://www.etsy.com/developers/documentation/
+
 
 ## Examples
 
