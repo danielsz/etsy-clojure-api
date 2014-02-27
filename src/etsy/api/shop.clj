@@ -5,8 +5,8 @@
 
 (defn find-all-shops 
   "Finds all Shops. If there is a keywords parameter, finds shops with shop_name starting with keywords."
-  [& {:keys [shop-name limit offset page lat lon distance-max] :as args}]
-  (api-call :GET "/shops"))
+  [& {:keys [shop-name limit offset page lat lon distance-max] :as params}]
+  (api-call :GET "/shops" :params params))
 
 (defn get-shop 
   "Retrieves a Shop by id."
@@ -16,7 +16,7 @@
 (defn update-shop 
   "Updates a Shop"
   [shop-id & {:keys [title announcement sale_message policy_welcome policy_payment policy_shipping policy_refunds policy_additional policy_seller_info digital_sale_message] :as args}]
-  (api-call :PUT "/shops/:shop_id"))
+  (api-call :PUT "/shops/:shop_id" :params params))
 
 (defn upload-shop-banner 
   "Upload a new shop banner image"
@@ -31,7 +31,7 @@
 (defn get-listing-shop 
   "Retrieves a shop by a listing id."
   [listing-id]
-  (api-call  :GET "/shops/listing/:listing_id"))
+  (api-call :GET "/shops/listing/:listing_id"))
 
 (defn find-all-user-shops 
   "Retrieves a set of Shop objects associated to a User."

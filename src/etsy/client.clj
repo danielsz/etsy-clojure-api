@@ -7,7 +7,7 @@
 
 (def base-url "https://openapi.etsy.com/v2")
 
-(defn sign [method path]
+(defn sign [method uri query-params]
   (if (bound? #'*oauth-token* #'*oauth-secret*)
     (let [consumer (oauth/make-consumer 
                     (:key @consumer) 
@@ -16,19 +16,21 @@
                     "https://api.twitter.com/oauth/access_token"                                       
                     "https://api.twitter.com/oauth/authorize" 
                     :hmac-sha1)]
-      (oauth/credentials consumer *oauth-token* *oauth-secret* method (str base-url path))) 
+      (oauth/credentials consumer *oauth-token* *oauth-secret* method uri query-params)) 
     {:api_key (:key @consumer)}))
 
-(defn api-call [method path]
+(defn api-call
+  [method path & {:keys [params payload]}]
   (when-not (seq @consumer) 
     (throw (Throwable. "You must create a consumer first (Etsy API key + secret).")))
-  (case method
-    :GET (let [options {:query-params (sign method path)}
-               results (client/get (str base-url path) options)]
-           (json/read-str (:body results)))
-    :POST
-    :PUT
-    :DELETE))
+  (let [uri (str base-url path)
+        options {:query-params (merge query-params (sign method uri params))}]
+    (case method
+      :GET (let [results (client/get uri options)]
+             (json/read-str (:body results)))
+      :POST
+      :PUT
+      :DELETE)))
 
 (defn- build-url [method params])
 

@@ -10,8 +10,8 @@
 
 (defmacro with-auth
   "Sets the user OAuth access token for write access and for accessing private user data."
-  [oauth-token oauth-secret body]
-  `(binding [*oauth-token* ~oauth-secret
+  [oauth-token oauth-secret & body]
+  `(binding [*oauth-token* ~oauth-token
              *oauth-secret* ~oauth-secret]
      (do
        ~@body)))
