@@ -32,7 +32,3 @@
       :POST
       :PUT
       :DELETE)))
-
-(defn- build-url [method params])
-
-
