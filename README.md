@@ -46,7 +46,7 @@ When in doubt, please refer to the official reference: http://www.etsy.com/devel
 
 ### Vision
 
-Library maintenance for a third-party API is burdensome, and can be completely eliminated if the API can provide a description of itself. Based on the document specification, the library would dynamically generate the required functions in their respective namespaces. Ian Barber showed how to achieve this with his [Clojure client](https://github.com/ianbarber/clj-gapi) for Google web service APIs. Fortunately, Etsy also provides a meta API call, corresponding in fact to the root endpoint ("/"). 
+Library maintenance for a third-party API is burdensome, and can be completely eliminated if the API can provide a description of itself. Based on the document specification, the library would dynamically generate the required functions in their respective namespaces. Ian Barber [showed](https://skillsmatter.com/skillscasts/3858-building-a-clojure-google-client-library-3858) how to achieve this with his [Clojure client](https://github.com/ianbarber/clj-gapi) for Google web service APIs. Fortunately, Etsy also provides a meta API call, corresponding in fact to the root endpoint ("/"), which makes this vision attainable. 
 
 ## Contribution
 
