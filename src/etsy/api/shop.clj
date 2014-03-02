@@ -35,5 +35,5 @@
 
 (defn find-all-user-shops 
   "Retrieves a set of Shop objects associated to a User."
-  [user_id & {:keys [limit offset page] :as args}]
-  (api-call :GET "/users/:user_id/shops"))
+  [user_id & {:keys [limit offset page] :as params}]
+  (api-call :GET "/users/:user_id/shops" :params params))
