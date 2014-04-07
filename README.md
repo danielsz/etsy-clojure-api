@@ -29,16 +29,26 @@ The above call will result in an unauthenticated request.
 To issue an authenticated request on behalf of a user, wrap the request with the user's OAuth token and secret.
 
 ```clojure
-(require '[etsy.core :refer [with-auth])
+(require '[etsy.core :refer [with-auth]])
 (with-auth "oauth-token" "oauth-secret"
    (etsy.api.shop/get-shop "shop-id"))
 ```
 
-The JSON results returned by Etsy will be converted into a native Clojure map.
+The JSON returned by Etsy will be converted into a native Clojure map.
+
+
+When an API call has optional parameters, specify them as key/value pairs like so:
+
+```clojure
+(with-auth "oauth-token" "oauth-secret"
+   (etsy.api.shop/find-all-shops :shop-name "bamboo"))
+```
+
+Etsy will return shops that match with the keyword "bamboo".
 
 ## Design philosophy
 
-Following the principle of least astonishment (POLA), the design of the library follows a one-to-one mapping with the official Etsy API.
+Following the principle of least astonishment ([POLA][http://en.wikipedia.org/wiki/Principle_of_least_astonishment]), the design of the library follows a one-to-one mapping with the official Etsy API.
 
 Every category in the API (Shop, Listing, Order, etc.) corresponds to a namespace. Every API call (getShop, findAllShops, findAllUserShops, etc.) corresponds to a function whose name has been converted from CamelCase to hyphenated strings. Every function accepts arguments modeled on the API specification.
 

@@ -15,7 +15,7 @@
 
 (defn update-shop 
   "Updates a Shop"
-  [shop-id & {:keys [title announcement sale_message policy_welcome policy_payment policy_shipping policy_refunds policy_additional policy_seller_info digital_sale_message] :as args}]
+  [shop-id & {:keys [title announcement sale_message policy_welcome policy_payment policy_shipping policy_refunds policy_additional policy_seller_info digital_sale_message] :as params}]
   (api-call :PUT "/shops/:shop_id" :params params))
 
 (defn upload-shop-banner 

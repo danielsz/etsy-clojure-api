@@ -26,9 +26,9 @@
   (let [uri (str base-url path)
         options {:query-params (merge params (sign method uri params))}]
     (case method
-      :GET (->> (client/get uri options)
+      :GET (-> (client/get uri options)
                 (:body)
-                (json/read-str))
+                (json/read-str :key-fn keyword))
       :POST
       :PUT
       :DELETE)))
