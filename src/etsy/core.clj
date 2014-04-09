@@ -1,5 +1,4 @@
-(ns etsy.core
-  (:require [etsy.client :refer [api-call api-call2]]))
+(ns etsy.core)
 
 (def consumer (atom {}))
 
