@@ -6,22 +6,23 @@ Initial release of an API wrapper for Etsy in Clojure.
 
 Add the following dependency to your project.clj file:
 
-    [etsy "0.0.3"]
+    [etsy "0.0.5"]
 
 ## Usage
 
-Before issuing actual API calls, you need to provide your API key and secret.
-(You must have received them when registering your Etsy application). 
+When you registered your Etsy application, you must have received an API key and secret.
+Use them to create an etsy client. 
 
 ```clojure
-(require '[etsy.core :refer [make-consumer])
-(make-consumer "consumer-key" "consumer-secret")
+(require '[etsy.core :refer [make-client])
+(def client (make-client "consumer-key" "consumer-secret"))
 ```
 
 Now you're ready to issue API calls.
 
 ```clojure
-(etsy.api.shop/get-shop "shop-id")
+(require '[etsy.api.shop :refer [get-shop])
+(client get-shop "shop-id")
 ```
 
 The above call will result in an unauthenticated request.
@@ -29,9 +30,9 @@ The above call will result in an unauthenticated request.
 To issue an authenticated request on behalf of a user, wrap the request with the user's OAuth token and secret.
 
 ```clojure
-(require '[etsy.core :refer [with-auth]])
-(with-auth "oauth-token" "oauth-secret"
-   (etsy.api.shop/get-shop "shop-id"))
+(require '[etsy.core :refer [with-user]])
+(with-user "oauth-token" "oauth-secret"
+   (client get-shop "shop-id"))
 ```
 
 The JSON returned by Etsy will be converted into a native Clojure map.
@@ -40,15 +41,14 @@ The JSON returned by Etsy will be converted into a native Clojure map.
 When an API call has optional parameters, specify them as key/value pairs like so:
 
 ```clojure
-(with-auth "oauth-token" "oauth-secret"
-   (etsy.api.shop/find-all-shops :shop-name "bamboo"))
+(client find-all-shops :shop-name "bamboo"))
 ```
 
-Etsy will return shops that match with the keyword "bamboo".
+Etsy will return shops that match the keyword "bamboo".
 
 ## Design philosophy
 
-Following the principle of least astonishment ([POLA][http://en.wikipedia.org/wiki/Principle_of_least_astonishment]), the design of the library follows a one-to-one mapping with the official Etsy API.
+Following the principle of least astonishment ([POLA](http://en.wikipedia.org/wiki/Principle_of_least_astonishment)), the design of the library follows a one-to-one mapping with the official Etsy API.
 
 Every category in the API (Shop, Listing, Order, etc.) corresponds to a namespace. Every API call (getShop, findAllShops, findAllUserShops, etc.) corresponds to a function whose name has been converted from CamelCase to hyphenated strings. Every function accepts arguments modeled on the API specification.
 
