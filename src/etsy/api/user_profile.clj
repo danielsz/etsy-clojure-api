@@ -6,4 +6,4 @@
 (defn find-user-profile
   "Returns the UserProfile object associated with a User."
   [user-id]
-  (api-call :GET (str "/users" user-id "profile")))
+  (api-call :GET (str "/users/" user-id "/profile")))
