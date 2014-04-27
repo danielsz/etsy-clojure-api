@@ -31,9 +31,9 @@
 (defn get-listing-shop 
   "Retrieves a shop by a listing id."
   [listing-id]
-  (api-call :GET "/shops/listing/:listing_id"))
+  (api-call :GET (str "/shops/listing/" listing-id)))
 
 (defn find-all-user-shops 
   "Retrieves a set of Shop objects associated to a User."
-  [user_id & {:keys [limit offset page] :as params}]
-  (api-call :GET "/users/:user_id/shops" :params params))
+  [user-id & {:keys [limit offset page] :as params}]
+  (api-call :GET (str "/users/" user-id "/shops") :params params))
