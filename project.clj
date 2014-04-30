@@ -7,7 +7,8 @@
                  [clj-http "0.7.9"]
                  [clj-oauth "1.4.1"]
                  [org.clojure/data.json "0.2.4"]]
-  :repositories [["releases" {:url "https://clojars.org/" :creds :gpg}]]
+  :repositories [["releases" {:url "https://clojars.org/" :creds :gpg}]
+                 ["snapshots" {:url "https://clojars.org/" :creds :gpg}]]
   :scm {:name "git"
         :url "https://github.com/danielsz/etsy-clojure-api"}
   :target-path "target/%s"
