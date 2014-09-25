@@ -6,7 +6,7 @@ Initial release of an API wrapper for Etsy in Clojure.
 
 Add the following dependency to your project.clj file:
 
-    [etsy "0.0.9"]
+    [org.danielsz/etsy "0.1.2"]
 
 ## Usage
 
