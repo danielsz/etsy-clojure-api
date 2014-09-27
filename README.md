@@ -32,7 +32,7 @@ To issue an authenticated request on behalf of a user, wrap the request with the
 ```clojure
 (require '[etsy.core :refer [with-user]])
 (with-user "oauth-token" "oauth-secret"
-   (client get-shop "shop-id"))
+   (client get-shop "BambooHandmade"))
 ```
 
 The JSON returned by Etsy will be converted into a native Clojure map.
@@ -41,7 +41,7 @@ The JSON returned by Etsy will be converted into a native Clojure map.
 When an API call has optional parameters, specify them as key/value pairs like so:
 
 ```clojure
-(client find-all-shops :shop-name "bamboo"))
+(client find-all-shops :shop-name "bamboo")
 ```
 
 Etsy will return shops that match the keyword "bamboo".
