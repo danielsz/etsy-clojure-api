@@ -1,4 +1,4 @@
-(defproject org.danielsz/etsy "0.1.2"
+(defproject org.danielsz/etsy "0.1.3-SNAPSHOT"
   :description "Etsy API library for Clojure"
   :url "https://github.com/danielsz/etsy-clojure-api"
   :license {:name "Eclipse Public License"
