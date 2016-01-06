@@ -10,6 +10,6 @@
 
 (defn get-user
   "Retrieves a User by id. Use __SELF__ to retrieve the user associated with the OAuth credentials"
-  [user-id]
-  (api-call :GET (str "/users/" user-id)))
+  [user-id & {:keys [fields] :as params}]
+  (api-call :GET (str "/users/" user-id) :params params))
 

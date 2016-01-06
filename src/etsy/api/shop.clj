@@ -10,8 +10,8 @@
 
 (defn get-shop 
   "Retrieves a Shop by id."
-  [shop-id]
-  (api-call :GET (str "/shops/" shop-id)))
+  [shop-id & {:keys [fields] :as params}]
+  (api-call :GET (str "/shops/" shop-id) :params params))
 
 (defn update-shop 
   "Updates a Shop"

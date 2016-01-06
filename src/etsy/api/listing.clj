@@ -10,8 +10,8 @@
 
 (defn get-listing
   "Get listing by listing id"
-  [listing-id]
-  (api-call :GET (str "/listings/" listing-id)))
+  [listing-id & {:keys [fields] :as params}]
+  (api-call :GET (str "/listings/" listing-id) :params params))
 
 (defn find-all-shop-section-listings-active
   "Finds all listings within a shop section"
