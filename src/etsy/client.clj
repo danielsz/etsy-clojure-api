@@ -3,7 +3,8 @@
    [clj-http.client :as client]
    [etsy.core :refer [consumer *oauth-token* *oauth-secret*]]
    [oauth.client :as oauth]
-   [clojure.data.json :as json]))
+   [clojure.data.json :as json]
+   [clojure.tools.logging :as log]))
 
 (def base-url "https://openapi.etsy.com/v2")
 
@@ -26,9 +27,15 @@
   (let [uri (str base-url path)
         options {:query-params (merge params (sign method uri params))}]
     (case method
-      :GET (-> (client/get uri options)
-                (:body)
-                (json/read-str :key-fn keyword))
+      :GET (let [usage (fn [limit remaining] (* (/ (- limit remaining) limit) 100)) ; in percent
+                 response (client/get uri options)
+                 headers (:headers response)
+                 limit  (Long/valueOf (get headers "X-RateLimit-Limit"))
+                 remaining (Long/valueOf (get headers "X-RateLimit-Remaining"))
+                 _ (when (> (usage limit remaining) 90) (log/warn "Exhausting maximum allowed requests per 24 hour" limit remaining))]
+             (-> response
+                 :body
+                 (json/read-str :key-fn keyword)))
       :POST
       :PUT
       :DELETE)))

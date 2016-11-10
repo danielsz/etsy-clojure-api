@@ -3,10 +3,12 @@
   :url "https://github.com/danielsz/etsy-clojure-api"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.6.0"]
-                 [clj-http "1.0.0"]
-                 [clj-oauth "1.5.1"]
-                 [org.clojure/data.json "0.2.5"]]
+  :dependencies [[org.clojure/clojure "1.8.0"]
+                 [clj-http "2.3.0"]
+                 [clj-oauth "1.5.5"]
+                 [org.clojure/data.json "0.2.6"]
+                 [environ "1.1.0"]
+                 [org.clojure/tools.logging "0.3.1"]]
   :repositories [["releases" {:url "https://clojars.org/" :creds :gpg}]
                  ["snapshots" {:url "https://clojars.org/" :creds :gpg}]]
   :scm {:name "git"
