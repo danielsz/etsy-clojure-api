@@ -1,6 +1,5 @@
 (ns etsy-api.core-test
   (:require [clojure.test :refer :all]
-            [environ.core :refer [env]]
             [etsy.core :refer [with-user make-client]]
             [etsy.api
              [user :as user]
@@ -14,9 +13,9 @@
   (testing "FIXME, I fail."
     (is (= 0 1))))
 
-(def client (make-client (:consumer-token env) (:consumer-secret env)))
-(def token (:user-token env))
-(def secret (:user-secret env))
+(def client (make-client (System/getProperty "consumer.token") (System/getProperty "consumer.secret")))
+(def token (System/getProperty "user.token"))
+(def secret (System/getProperty "user.secret"))
 
 (with-user token secret
-  (client shop/find-all-user-shops (:shop-id env)))
+  (client shop/find-all-user-shops (System/getProperty "shop.id")))
