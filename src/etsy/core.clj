@@ -10,12 +10,13 @@
   (reset! consumer {:key key :secret secret}))
 
 (defn make-client
-  [consumer-key consumer-secret & {:keys [throttled?] :or {throttled? false}}]
-  (make-consumer consumer-key consumer-secret)
-  (if throttled?
-    (fn [f & args] (let [f* (throttle-fn f 10 :second)]
-                     (apply f* args)))
-    (fn [f & args] (apply f args))))
+  ([consumer-key consumer-secret]
+   (make-consumer consumer-key consumer-secret)
+   (fn [f & args] (apply f args)))
+  ([consumer-key consumer-secret throttle-rate]
+   (make-consumer consumer-key consumer-secret)
+   (fn [f & args] (let [f* (throttle-fn f throttle-rate :second)]
+                    (apply f* args)))))
 
 (defmacro with-user
   "Sets the user OAuth access token for write access and for accessing private user data."

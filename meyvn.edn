@@ -1,6 +1,6 @@
 {:pom {:group-id "org.danielsz",
        :artifact-id "etsy",
-       :version "0.1.4",
+       :version "0.1.5",
        :name "etsy-clojure-api"},
  :build-properties {:project-build-sourceEncoding "UTF-8"},
  :packaging {:uberjar {:graalvm {:enabled false,
